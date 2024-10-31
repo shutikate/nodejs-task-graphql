@@ -6,7 +6,7 @@ import { profileType } from './profiles.js';
 import { userType } from './users.js';
 import { Context } from '../types/context.js';
 
-export const rootQuery = new GraphQLObjectType({
+export const RootQuery = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
     memberTypes: {
@@ -27,9 +27,6 @@ export const rootQuery = new GraphQLObjectType({
             id,
           },
         });
-        if (memberType === null) {
-          throw context.httpErrors.notFound();
-        }
         return memberType;
       },
     },
@@ -52,9 +49,6 @@ export const rootQuery = new GraphQLObjectType({
             id,
           },
         });
-        if (user === null) {
-          throw context.httpErrors.notFound();
-        }
         return user;
       },
     },
@@ -77,9 +71,6 @@ export const rootQuery = new GraphQLObjectType({
             id,
           },
         });
-        if (post === null) {
-          throw context.httpErrors.notFound();
-        }
         return post;
       },
     },
@@ -102,9 +93,6 @@ export const rootQuery = new GraphQLObjectType({
             id,
           },
         });
-        if (profile === null) {
-          throw context.httpErrors.notFound();
-        }
         return profile;
       },
     },
