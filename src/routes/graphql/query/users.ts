@@ -1,10 +1,10 @@
 import { GraphQLNonNull, GraphQLObjectType, GraphQLString, GraphQLFloat, GraphQLList } from 'graphql';
 import { UUIDType } from '../types/uuid.js';
-import { profileType } from './profiles.js';
-import { postType } from './posts.js';
+import { ProfileType } from './profiles.js';
+import { PostType } from './posts.js';
 import { Context } from '../types/context.js';
 
-export const userType: GraphQLObjectType = new GraphQLObjectType({
+export const UserType: GraphQLObjectType = new GraphQLObjectType({
   name: 'UserType',
   fields: () => ({
     id: { type: new GraphQLNonNull(UUIDType) },
@@ -14,7 +14,7 @@ export const userType: GraphQLObjectType = new GraphQLObjectType({
     balance: { type: new GraphQLNonNull(GraphQLFloat) },
 
     profile: {
-      type: profileType,
+      type: ProfileType,
       resolve: async ({ id }: { id: string }, _, context: Context) => {
         const profile = await context.prisma.profile.findUnique({
           where: {
@@ -26,7 +26,7 @@ export const userType: GraphQLObjectType = new GraphQLObjectType({
     },
 
     posts: {
-      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(postType))),
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(PostType))),
       resolve: async ({ id }: { id: string }, _, context: Context) => {
         return await context.prisma.post.findMany({
           where: {
@@ -37,7 +37,7 @@ export const userType: GraphQLObjectType = new GraphQLObjectType({
     },
 
     userSubscribedTo: {
-      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(userType))),
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(UserType))),
       resolve: async ({ id }: { id: string }, _, context: Context) => {
         return await context.prisma.user.findMany({
           where: {
@@ -52,7 +52,7 @@ export const userType: GraphQLObjectType = new GraphQLObjectType({
     },
 
     subscribedToUser: {
-      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(userType))),
+      type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(UserType))),
       resolve: async ({ id }: { id: string }, _, context: Context) => {
         return await context.prisma.user.findMany({
           where: {

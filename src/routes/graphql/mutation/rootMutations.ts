@@ -1,6 +1,6 @@
-import { userType } from '../query/users.js';
-import { profileType } from '../query/profiles.js';
-import { postType } from '../query/posts.js';
+import { UserType } from '../query/users.js';
+import { ProfileType } from '../query/profiles.js';
+import { PostType } from '../query/posts.js';
 import { CreateUserInput, ChangeUserInput } from './users.js';
 import { CreateProfileInput, ChangeProfileInput } from './profiles.js';
 import { CreatePostInput, ChangePostInput } from './posts.js';
@@ -12,7 +12,7 @@ export const RootMutations = new GraphQLObjectType({
   name: 'RootMutations',
   fields: {
     createUser: {
-      type: new GraphQLNonNull(userType),
+      type: new GraphQLNonNull(UserType),
       args: {
         dto: { type: new GraphQLNonNull(CreateUserInput) },
       },
@@ -28,7 +28,7 @@ export const RootMutations = new GraphQLObjectType({
     },
 
     createProfile: {
-      type: new GraphQLNonNull(profileType),
+      type: new GraphQLNonNull(ProfileType),
       args: {
         dto: { type: new GraphQLNonNull(CreateProfileInput) },
       },
@@ -53,7 +53,7 @@ export const RootMutations = new GraphQLObjectType({
     },
 
     createPost: {
-      type: new GraphQLNonNull(postType),
+      type: new GraphQLNonNull(PostType),
       args: {
         dto: { type: new GraphQLNonNull(CreatePostInput) },
       },
@@ -69,7 +69,7 @@ export const RootMutations = new GraphQLObjectType({
     },
 
     changePost: {
-      type: new GraphQLNonNull(postType),
+      type: new GraphQLNonNull(PostType),
       args: {
         id: { type: new GraphQLNonNull(UUIDType) },
         dto: { type: ChangePostInput },
@@ -87,7 +87,7 @@ export const RootMutations = new GraphQLObjectType({
     },
 
     changeProfile: {
-      type: new GraphQLNonNull(profileType),
+      type: new GraphQLNonNull(ProfileType),
       args: {
         id: { type: new GraphQLNonNull(UUIDType) },
         dto: { type: new GraphQLNonNull(ChangeProfileInput) },
@@ -116,7 +116,7 @@ export const RootMutations = new GraphQLObjectType({
     },
 
     changeUser: {
-      type: new GraphQLNonNull(userType),
+      type: new GraphQLNonNull(UserType),
       args: {
         id: { type: new GraphQLNonNull(UUIDType) },
         dto: { type: new GraphQLNonNull(ChangeUserInput) },
@@ -204,7 +204,7 @@ export const RootMutations = new GraphQLObjectType({
         { userId, authorId }: { userId: string; authorId: string },
         context: Context,
       ) => {
-        const subscribersOnAuthors =  await context.prisma.subscribersOnAuthors.delete({
+        const subscribersOnAuthors = await context.prisma.subscribersOnAuthors.delete({
           where: {
             subscriberId_authorId: {
               subscriberId: userId,

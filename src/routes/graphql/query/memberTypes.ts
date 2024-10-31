@@ -6,7 +6,7 @@ import {
   GraphQLNonNull,
 } from 'graphql';
 
-export const memberTypeId = new GraphQLEnumType({
+export const MemberTypeId = new GraphQLEnumType({
   name: 'MemberTypeId',
   values: {
     BASIC: { value: 'BASIC' },
@@ -14,10 +14,10 @@ export const memberTypeId = new GraphQLEnumType({
   },
 });
 
-export const memberType = new GraphQLObjectType({
+export const MemberType = new GraphQLObjectType({
   name: 'MemberTypeFields',
   fields: {
-    id: { type: new GraphQLNonNull(memberTypeId) },
+    id: { type: new GraphQLNonNull(MemberTypeId) },
     discount: { type: new GraphQLNonNull(GraphQLFloat) },
     postsLimitPerMonth: { type: new GraphQLNonNull(GraphQLInt) },
   },
